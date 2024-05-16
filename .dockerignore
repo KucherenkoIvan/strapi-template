@@ -1,0 +1,16 @@
+postgres
+postgres/*
+node_modules
+Dockerfile
+npm-debug.log
+dist
+build
+.vscode
+.env
+.git
+.gitignore
+documentation
+coverage
+etc
+logs
+ext

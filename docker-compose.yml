@@ -1,0 +1,35 @@
+services:
+  strapi:
+    restart: always
+    container_name: strapi
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - 19932:19932
+    volumes:
+      - strapi-deps:/usr/app/node_modules # prevent deps leak
+      - ./:/usr/app # hot-reload
+  strapi-db:
+    restart: always
+    container_name: strapi-db
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: strapi-workshop
+      PGDATA: /data/postgres
+    volumes:
+       - strapi-db-data:/data/postgres
+    ports:
+      - "55432:5432"
+
+networks:
+  default:
+    name: strapi-demo-network
+
+volumes:
+  strapi-deps:
+  strapi-db-data:
